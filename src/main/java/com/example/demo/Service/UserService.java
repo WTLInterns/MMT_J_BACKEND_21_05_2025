@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,7 +39,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private JwtUtils jwtUtils;
+	private JwtUtils jwtUtils;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
 
 
@@ -84,11 +88,23 @@ public class UserService {
 
     // login
 
-    public Map<String, Object> loginForAll(LoginRequest loginRequest){
-        
-            return null;
-
-        
-    }
+    public LoginRequest login(LoginRequest loginRequest) {
+		LoginRequest response = new LoginRequest();
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
+			var user = this.userRepository.findByEmail(loginRequest.getEmail());
+			var jwt = jwtUtils.generateToken(user);
+			response.setToken(jwt);
+			response.setRole(user.getRole());
+			response.setEmail(user.getEmail());
+			response.setPassword(user.getPassword());
+		}
+		
+		catch(Exception e) {
+		System.out.println(e.getMessage());
+			
+		}
+		return response;
+	}
 
 }
