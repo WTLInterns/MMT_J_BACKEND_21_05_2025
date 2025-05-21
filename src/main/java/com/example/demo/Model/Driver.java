@@ -25,9 +25,10 @@ public class Driver {
         this.user = user;
     }
 
-    public Driver(){
+    public Driver() {
         super();
     }
+
     public int getId() {
         return id;
     }
@@ -51,8 +52,5 @@ public class Driver {
     public void setUser(User user) {
         this.user = user;
     }
-
-
-    
 
 }

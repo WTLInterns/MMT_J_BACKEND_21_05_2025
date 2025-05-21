@@ -1,6 +1,5 @@
 package com.example.demo.Config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,47 +18,39 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.example.demo.JwtConfig.JwtAuthFilter;
 import com.example.demo.Service.UserDetailsServiceImpl;
 
-
-
 @Configuration
 public class SecurityConfig {
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
-	
+
 	@Autowired
 	private JwtAuthFilter jwtAuthFilter;
-	
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-	    http.authorizeHttpRequests(request -> 
-	        request
-	            .requestMatchers("/auth/**").permitAll()  
-	            .requestMatchers("/masterAdmin/**").hasAnyAuthority("MASTER_ADMIN")
-	            .requestMatchers("/vendor/**").hasAnyAuthority("VENDOR")
-                .requestMatchers("/subAdmin/**").hasAnyAuthority("SUB_ADMIN")
-                .requestMatchers("/driver/**").hasAnyAuthority("DRIVER")
+		http.authorizeHttpRequests(request -> request
+				.requestMatchers("/auth/**").permitAll()
+				.requestMatchers("/masterAdmin/**").hasAnyAuthority("MASTER_ADMIN")
+				.requestMatchers("/vendor/**").hasAnyAuthority("VENDOR")
+				.requestMatchers("/subAdmin/**").hasAnyAuthority("SUB_ADMIN")
+				.requestMatchers("/driver/**").hasAnyAuthority("DRIVER")
 
-
-
-	            .anyRequest().authenticated()                 
-	    );
-	    http.csrf(csrf -> csrf.disable());
-	    http.csrf(AbstractHttpConfigurer::disable);
+				.anyRequest().authenticated());
+		http.csrf(csrf -> csrf.disable());
+		http.csrf(AbstractHttpConfigurer::disable);
 		http.cors(Customizer.withDefaults());
-		http.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+		http.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthFilter,
+				UsernamePasswordAuthenticationFilter.class);
 
-	    return http.build();
+		return http.build();
 	}
 
-	
-	
-	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvideer = new DaoAuthenticationProvider();
@@ -67,11 +58,10 @@ public class SecurityConfig {
 		daoAuthenticationProvideer.setPasswordEncoder(passwordEncoder());
 		return daoAuthenticationProvideer;
 	}
-	
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
-	
+
 }

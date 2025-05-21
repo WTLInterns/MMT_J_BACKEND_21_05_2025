@@ -17,13 +17,12 @@ import com.example.demo.Service.UserService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    
-@Autowired
-private UserService userService;
 
-@PostMapping("/register")
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
         return userService.register(request);
     }
 }
-

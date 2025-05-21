@@ -24,9 +24,11 @@ public class Vendor {
         this.companyName = companyName;
         this.user = user;
     }
-public Vendor(){
-    super();
-}
+
+    public Vendor() {
+        super();
+    }
+
     public int getId() {
         return id;
     }
@@ -51,5 +53,4 @@ public Vendor(){
         this.user = user;
     }
 
-    
 }
