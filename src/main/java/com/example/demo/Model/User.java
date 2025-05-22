@@ -35,6 +35,12 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Driver driver;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private SubAdmin subAdmin;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private MasterAdmin masterAdmin;
+
 
 
     public User() {
@@ -107,5 +113,15 @@ public class User implements UserDetails {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public SubAdmin getSubAdmin() {
+        return subAdmin;
+    }
+
+    public void setSubAdmin(SubAdmin subAdmin) {
+        this.subAdmin = subAdmin;
+    }
+
+    
 
 }

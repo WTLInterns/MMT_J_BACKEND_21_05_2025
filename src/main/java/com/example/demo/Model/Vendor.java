@@ -18,6 +18,7 @@ public class Vendor {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
 
     public Vendor(int id, String companyName, User user) {
         this.id = id;

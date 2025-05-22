@@ -10,6 +10,21 @@ public class RegisterRequest {
     private String licenseNumber;
     private String email;
 
+    private String subAdminFirstName;
+
+    private String subAdminLastName;
+
+    private String subAdminPhoneNo;
+
+    private String masterAdminFirstName;
+
+    private String masterAdminLastName;
+
+    private String masterAdminPhone;
+
+
+
+
     public RegisterRequest() {
         super();
     }
@@ -61,6 +76,58 @@ public class RegisterRequest {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getSubAdminFirstName() {
+        return subAdminFirstName;
+    }
+
+    public void setSubAdminFirstName(String subAdminFirstName) {
+        this.subAdminFirstName = subAdminFirstName;
+    }
+
+    public String getSubAdminLastName() {
+        return subAdminLastName;
+    }
+
+    public void setSubAdminLastName(String subAdminLastName) {
+        this.subAdminLastName = subAdminLastName;
+    }
+
+    public String getSubAdminPhoneNo() {
+        return subAdminPhoneNo;
+    }
+
+    public void setSubAdminPhoneNo(String subAdminPhoneNo) {
+        this.subAdminPhoneNo = subAdminPhoneNo;
+    }
+
+    public String getMasterAdminFirstName() {
+        return masterAdminFirstName;
+    }
+
+    public void setMasterAdminFirstName(String masterAdminFirstName) {
+        this.masterAdminFirstName = masterAdminFirstName;
+    }
+
+    public String getMasterAdminLastName() {
+        return masterAdminLastName;
+    }
+
+    public void setMasterAdminLastName(String masterAdminLastName) {
+        this.masterAdminLastName = masterAdminLastName;
+    }
+
+    public String getMasterAdminPhone() {
+        return masterAdminPhone;
+    }
+
+    public void setMasterAdminPhone(String masterAdminPhone) {
+        this.masterAdminPhone = masterAdminPhone;
+    }
+
+    
+
+    
 
     
 

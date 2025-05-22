@@ -11,15 +11,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.JwtConfig.JwtUtils;
 import com.example.demo.Model.Driver;
+import com.example.demo.Model.MasterAdmin;
+import com.example.demo.Model.SubAdmin;
 import com.example.demo.Model.User;
 import com.example.demo.Model.Vendor;
 import com.example.demo.Repository.DriverRepository;
+import com.example.demo.Repository.MasterAdminRepository;
+import com.example.demo.Repository.SubAdminRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Repository.VendorRepository;
 
@@ -34,6 +37,12 @@ public class UserService {
 
     @Autowired
     private DriverRepository driverRepository;
+
+    @Autowired
+    private SubAdminRepository subAdminRepository;
+
+    @Autowired
+    private MasterAdminRepository masterAdminRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -65,6 +74,7 @@ public class UserService {
         user.setRole(request.getRole());
         userRepository.save(user);
 
+
         switch (request.getRole()) {
             case "VENDOR" -> {
                 Vendor vendor = new Vendor();
@@ -78,10 +88,26 @@ public class UserService {
                 driver.setUser(user);
                 driverRepository.save(driver);
             }
+            case "SUB_ADMIN"->{
+                SubAdmin subAdmin = new SubAdmin();
+                subAdmin.setSubAdminFirstName(request.getSubAdminFirstName());
+                subAdmin.setSubAdminLastName(request.getSubAdminLastName());
+                subAdmin.setMobileNo(request.getSubAdminPhoneNo());
+                subAdmin.setUser(user);
+                subAdminRepository.save(subAdmin);
+                }
+            case "MASTER_ADMIN"->{
+                MasterAdmin masterAdmin = new MasterAdmin();
+                masterAdmin.setFirstName(request.getMasterAdminFirstName());
+                masterAdmin.setLastName(request.getMasterAdminLastName());
+                masterAdmin.setPhoneNo(request.getMasterAdminPhone());
+                masterAdmin.setUser(user);
+                masterAdminRepository.save(masterAdmin);
+            }
 
         }
 
-        return ResponseEntity.ok("User Registered");
+        return ResponseEntity.ok("User Registered "+ user.getEmail());
     }
 
 
@@ -99,11 +125,9 @@ public class UserService {
 			response.setEmail(user.getEmail());
 			response.setPassword(user.getPassword());
 		}
-		
-		catch(Exception e) {
+		catch(Exception e){
 		System.out.println(e.getMessage());
-			
-		}
+			}
 		return response;
 	}
 
