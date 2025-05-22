@@ -1,9 +1,6 @@
 package com.example.demo.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
+import com.example.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +12,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.JwtConfig.JwtUtils;
-import com.example.demo.Model.Driver;
-import com.example.demo.Model.MasterAdmin;
-import com.example.demo.Model.SubAdmin;
-import com.example.demo.Model.User;
-import com.example.demo.Model.Vendor;
 import com.example.demo.Repository.DriverRepository;
 import com.example.demo.Repository.MasterAdminRepository;
 import com.example.demo.Repository.SubAdminRepository;
